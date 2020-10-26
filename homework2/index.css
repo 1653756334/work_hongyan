@@ -98,14 +98,17 @@ h3 {
     border-bottom: 2px solid #f7954c;
 }
 .intro {
+    display: flex;
     width: 1040px;
-    height: 180px;
+    height: 215px;
+    /* background-color: skyblue; */
 }
 .intro .nav2 {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     padding: 0;
+    /* background-color: pink; */
     height: 215px;
     width: 100px;
 }
@@ -123,4 +126,23 @@ h3 {
 .intro .nav2 li:hover {
     background-color: #9a92fb;
     color: #fff;
+}
+.intro .xiangqing {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 65px;
+    box-sizing: border-box;
+    width: 715px;
+    height: 215px;
+    /* background-color: yellowgreen; */
+}
+.intro .xiangqing div {
+    width: 203px;
+    height: 215px;
+}
+.intro .xiangqing div img {
+    width: 203px;
+}
+.intro .xiangqing div p {
+    font-size: 14px;
 }

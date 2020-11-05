@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let str = "can-enter-volunteer-organization"
+
+        function change(str) {
+            var newArr = str.split('-');
+            for (var i = 1; i < newArr.length; i++) {
+                //获取首字母
+                var k = newArr[i].charAt(0);
+                //转换大写
+                newArr[i] = newArr[i].replace(k, k.toUpperCase());
+            }
+            newArr = newArr.join('');
+            console.log(newArr);
+        }
+
+        change(str);       //"canEnterVolunteerOrganization"
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

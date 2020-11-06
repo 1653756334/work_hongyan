@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let arr = [[1, 2], 3, [4, [5, [6]], 7]];
+
+        function even(arr) {
+            var mm = "";
+            var sum = "";
+            //将数组转为字符串
+            for (var i = 0; i < arr.length; i++) {
+                mm += arr[i]
+            }
+            //整个转化为一个字符串
+            for (var i = 0; i < mm.length; i++) {
+                if (mm[i] != ',') {
+                    sum += mm[i];
+                }
+            }
+            //将字符串转化为数组
+            sum = sum.split('');
+            for (var i = 0; i < sum.length; i++) {
+                //将字符转为整数
+                sum[i] = parseFloat(sum[i]);
+            }
+            console.log(sum);
+        }
+
+        even(arr)   // [1,2,3,4,5,6,7]
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

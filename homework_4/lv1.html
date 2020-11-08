@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fibnacci</title>
+    <script>
+        let fibnacci = (n) => {
+            if (n == 2 || n == 1) {
+                return 1;
+            }
+            else {
+                return fibnacci(n - 1) + fibnacci(n - 2);
+            }
+        }
+        let n = prompt('请输入计算fibnacci数列第几项：');
+        alert(fibnacci(n));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

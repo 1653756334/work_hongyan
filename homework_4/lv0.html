@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构赋值的实践</title>
+    <script>
+        const person = {
+            name: 'Boson',
+            age: 20,
+            address: {
+                city: 'Chongqing',
+                area: 'Nanan'
+            }
+        }
+        let access = { name, age, address: { city, area } } = person;
+        console.log(access);
+    // 通过解构赋值的方式获取对象中所有属性
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

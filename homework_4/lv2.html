@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add</title>
+    <script>
+        function add(...values) {
+            let sum = 0;
+            // console.log(values);
+            for (let i = 0; i < values.length; i++) {
+                sum += values[i];
+            }
+            return sum;
+        }
+        sum = add(1, 2, 3, 55, 3);
+        console.log(sum);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

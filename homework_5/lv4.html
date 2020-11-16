@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #text {
+            display: block;
+            resize: none;
+            outline: none;
+            width: 500px;
+            height: 200px;
+            margin: 20 auto;
+        }
+
+        #input {
+            width: 180px;
+            height: 20px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea name="" id="text" cols="30" rows="10"></textarea>
+    <input type="text" name="" id="input">
+    <button>留言</button>
+
+    <script>
+        var text = document.querySelector('#input');
+        var btn = document.querySelector('button');
+        var textarea = document.querySelector('#text');
+        var count = 1;
+
+        btn.addEventListener('click', () => {
+            textarea.value = textarea.value + `第${count}楼：` + text.value + '\n';
+            count++;
+        }, false)
+    </script>
+</body>
+
+</html>

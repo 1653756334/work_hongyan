@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-ZN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ul">
+        <li>吃饭</li>
+        <li>王者</li>
+        <li>不睡觉</li>
+        <li>打豆豆</li>
+        <li>carry</li>
+        <li>学习</li>
+        <li>使我</li>
+        <li>快乐</li>
+    </ul>
+    <button>点我改变样式</button>
+    <script>
+        var ul = document.querySelector('#ul');
+        ul.addEventListener('click', function (e) {
+            alert(e.target.innerHTML);
+        }, false)
+        document.querySelector('button').addEventListener('click', function () {
+            for (var i = 0; i < ul.children.length; i++) {
+                i % 2 == 0 ? ul.children[i].style.color = 'red' : ul.children[i].style.color = 'green';
+            }
+        })
+    </script>
+</body>
+
+</html>

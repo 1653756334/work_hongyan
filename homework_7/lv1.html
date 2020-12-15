@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lv1</title>
+    <script>
+        window.onload = function () {
+            function makeClosures(arr, fn) {
+                let result = [];
+                (function () {
+                    for(let i = 0; i < arr.length; i++) {
+                        result.push(fn(arr[i]));
+                    }
+                })();
+                return result;
+            }
+            let array = [1, 2, 3,55,7]
+            let foo = (x) => {
+                return function () {
+                    console.log(x);
+                }
+            }
+            let fun = makeClosures(array, foo)
+
+            fun[0]() //1
+            fun[1]()//2
+            fun[2]()//3
+            fun[3]()//55
+            fun[4]()//7
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

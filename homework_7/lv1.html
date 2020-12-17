@@ -7,11 +7,10 @@
         window.onload = function () {
             function makeClosures(arr, fn) {
                 let result = [];
-                (function () {
-                    for(let i = 0; i < arr.length; i++) {
-                        result.push(fn(arr[i]));
-                    }
-                })();
+                for(let i = 0; i < arr.length; i++) {
+                    result.push(fn(arr[i]));
+                }
+                console.log(result);
                 return result;
             }
             let array = [1, 2, 3,55,7]

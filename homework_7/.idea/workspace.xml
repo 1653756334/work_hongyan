@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d5f5290b-85f6-4152-8808-13d574777c89" name="Default Changelist" comment="lv2" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1lfnkSkxzqTnznTVHPc9XFjolAP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d5f5290b-85f6-4152-8808-13d574777c89" name="Default Changelist" comment="" />
+      <created>1607997158081</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607997158081</updated>
+      <workItem from="1607997159998" duration="4115000" />
+      <workItem from="1608162527194" duration="2004000" />
+      <workItem from="1608170249693" duration="1640000" />
+      <workItem from="1608442642280" duration="650000" />
+      <workItem from="1608447881757" duration="609000" />
+    </task>
+    <task id="LOCAL-00001" summary="lv2">
+      <created>1608162788209</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1608162788209</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="lv2" />
+    <option name="LAST_COMMIT_MESSAGE" value="lv2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="606" y="398" key="#Notifications" timestamp="1607997237347">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="606" y="398" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1607997237347" />
+    <state x="653" y="361" key="#Web_Browsers" timestamp="1607997298033">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="653" y="361" key="#Web_Browsers/0.0.1920.1040@0.0.1920.1040" timestamp="1607997298033" />
+    <state x="223" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608162767121">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="223" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608162767121" />
+    <state x="476" y="279" key="Vcs.Push.Dialog.v2" timestamp="1608164539775">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="476" y="279" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1608164539775" />
+    <state x="572" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608162763186">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="572" y="435" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1608162763186" />
+    <state x="788" y="256" key="run.anything.popup" timestamp="1608442673337">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="788" y="256" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1608442673337" />
+  </component>
+</project>

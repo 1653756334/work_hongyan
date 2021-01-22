@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        window.onload = function () {
+            var btn = document.querySelector('button');
+            var text = document.querySelector('input');
+
+            //实例化XMLHttpRequest对象
+            const xhr = new XMLHttpRequest();
+            //初始化一个get请求
+            xhr.open('get', 'http://musicapi.leanapp.cn/personalized', true);
+
+            //接收返回值
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                        const res = JSON.parse(xhr.responseText);
+                        // console.log(res.result);
+                        /* for (var i = 0; i < res.result.length; i++) {
+                            console.log(res.result[i].name);
+                        } */
+                        for (var i = 0; i < res.result.length; i++) {
+                            if (text.value == res.result[i].name) {
+                                console.log("1");
+                            }
+                        }
+
+
+                        // songs.push(res.result);
+                        console.log('请求成功');
+                    } else {
+                        console.log('请求失败');
+                    }
+                }
+            };
+            // console.log(songs);
+            //发送请求
+            xhr.send();
+        }
+
+    </script>
+</body>
+<input type="text" value="">
+
+<button>搜索</button>
+
+<br>
+<img src="" alt="">
+
+<a href="">歌曲</a>
+
+</html>

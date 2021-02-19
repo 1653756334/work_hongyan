@@ -1,0 +1,410 @@
+/*以下为登录页面*/
+.login_h {
+    display: none;
+    width: 530px;
+    height: 370px;
+    position: absolute;
+    top: -10vh;
+    left: 50%;
+    margin-left: -265px;
+    z-index: 3;
+}
+
+.login_mask {
+    position: relative;
+    background-color: #fff;
+    width: 530px;
+    height: 370px;
+    margin: 30vh auto 0 auto;
+    border-radius: 5px;
+}
+
+.login_mask .login_mask_top {
+    width: 100%;
+    height: 35px;
+    padding: 0 10px 0 10px;
+    box-sizing: border-box;
+    background-color: #000;
+    color: #fff;
+}
+
+.login_mask .login_mask_top .top_text {
+    float: left;
+    line-height: 35px;
+    font-weight: 700;
+}
+
+.login_mask .login_mask_top .top_close {
+    float: right;
+    line-height: 35px;
+    font-size: 22px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.login_content1,
+.login_content2 {
+    width: 100%;
+    height: 220px;
+    background-color: #fff;
+    margin-top: 40px;
+}
+
+.login_content1 .login_phonePic {
+    float: left;
+    width: 125px;
+    height: 100%;
+    margin-left: 100px;
+    background: url("../images/qr_guide.png") no-repeat 0 0;
+    background-size: contain;
+}
+
+.login_content1 .login_VRcode {
+    float: left;
+    margin-left: 30px;
+    width: 210px;
+    height: 100%;
+}
+
+.login_content1 .login_VRcode .code_title {
+    text-align: center;
+    font-size: 20px;
+}
+
+.login_content1 .login_VRcode a {
+    color: #448ace;
+    text-decoration: none;
+}
+
+.login_content1 .login_VRcode a:hover {
+    text-decoration: underline;
+}
+
+.login_mask .other_ways {
+    width: 125px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 5px;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    border-radius: 15px;
+    margin: 20px auto 0 auto;
+    cursor: pointer;
+}
+
+.login_mask .login_content2 {
+    display: none;
+}
+
+.login_content2 .content2_left {
+    float: left;
+    width: 300px;
+    height: 100%;
+}
+
+.login_content2 .content2_left .pic {
+
+    width: 224px;
+    height: 120px;
+    background: url("../images/platform.png") no-repeat 13px 0;
+    margin: 0 auto;
+}
+
+.login_content2 .content2_left a {
+    display: block;
+    width: 224px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+    font-size: 14px;
+
+}
+
+.login_content2 .content2_left .phoneNum {
+    width: 224px;
+    height: 35px;
+    margin: 10px auto;
+    background: url("../images/button2.png") no-repeat 0 -1650px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 0 5px 5px 0;
+}
+
+.login_content2 .content2_left .phoneNum:hover {
+    background-position: 0 -1730px;
+}
+
+.login_content2 .content2_left .sign_up {
+    width: 224px;
+    height: 35px;
+    margin: 0 auto;
+    background: url("../images/button2.png") no-repeat 0 -1810px;
+    border-color: transparent #ccc transparent transparent;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0 5px 5px 0;
+}
+
+.login_content2 .content2_left .sign_up:hover {
+    background-position: 0 -1890px;
+}
+
+.login_content2 .content2_right {
+    float: left;
+    width: 150px;
+    height: 100%;
+    padding-left: 30px;
+    border-left: 1px dotted #ccc;
+}
+
+.login_content2 .content2_right li {
+    height: 38px;
+    width: 150px;
+    margin: 15px;
+    box-sizing: border-box;
+}
+
+.login_content2 .content2_right a {
+    float: left;
+    font-size: 12px;
+    color: #666;
+    padding-left: 10px;
+    text-decoration: none;
+    line-height: 38px;
+}
+
+.login_content2 .content2_right a:hover {
+    text-decoration: underline;
+}
+
+.login_content2 .content2_right li i {
+    float: left;
+    display: block;
+    width: 38px;
+    height: 38px;
+    background: url("../images/logo.png") no-repeat 0 9999px;
+}
+
+.login_mask .check {
+    display: none;
+    font-size: 12px;
+    margin: 20px 0 0 40px;
+}
+
+.login_mask .check a {
+    text-decoration: none;
+    color: #6785af;
+}
+
+.login_mask .check a:hover {
+    text-decoration: underline;
+}
+
+.login_content2 .qr_code {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    background: url("../images/qr_login_icon.png");
+    background-size: contain;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.phoneIn {
+    position: absolute;
+    width: 530px;
+    height: 320px;
+    top: 30vh;
+    left: 50%;
+    margin-left: -265px;
+    display: none;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.phoneIn .phoneIn_top {
+    width: 100%;
+    height: 35px;
+    background-color: #2d2d2d;
+}
+
+.phoneIn .phoneIn_top h5 {
+    float: left;
+    color: #fff;
+    line-height: 35px;
+    margin-left: 15px;
+}
+
+.phoneIn .phoneIn_top span {
+    float: right;
+    line-height: 35px;
+    color: #ccc;
+    font-size: 18px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.phoneIn .phoneIn_content {
+    height: 195px;
+    width: 100%;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.phoneIn .phoneIn_content .main_content {
+    width: 220px;
+    height: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.phoneIn .phoneIn_content .main_content .phone_num,
+.phoneIn .phoneIn_content .main_content .password {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    color: #4c4c4c;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.phoneIn .phoneIn_content .main_content .phone_num {
+    margin: 40px 0 10px 0;
+
+}
+
+.phoneIn .phoneIn_content .main_content input {
+    border: none;
+    outline: none;
+    height: 30px;
+    font-size: 14px;
+    padding-left: 5px;
+    box-sizing: border-box;
+}
+
+.phoneIn .phoneIn_content .main_content .number {
+    width: 170px;
+    height: 28px;
+    float: right;
+}
+
+.phoneIn .phoneIn_content .main_content .country_code {
+    font-size: 12px;
+    color: #4c4c4c;
+    line-height: 30px;
+
+}
+
+.phoneIn .phoneIn_content .main_content a {
+    display: inline-block;
+    height: 30px;
+    text-decoration: none;
+    border-right: 1px solid #ccc;
+    padding: 0 4px 0 4px;
+}
+
+.phoneIn .phoneIn_content .main_content .all_c {
+    display: inline-block;
+    width: 7px;
+    height: 4px;
+    background: url("../images/icon2.png") no-repeat -260px -450px;
+}
+
+.phoneIn .phoneIn_content .main_content .login_choose {
+    margin-top: 10px;
+    width: 100%;
+    color: #4c4c4c;
+    font-size: 12px;
+}
+
+.phoneIn .phoneIn_content .main_content .login_choose #auto_login {
+    /* margin-right: 10px; */
+    height: 13px;
+}
+
+.phoneIn .phoneIn_content .main_content .login_choose .forget_pw {
+    float: right;
+}
+
+.phoneIn .phoneIn_content .main_content .login_button {
+    width: 220px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    color: #fff;
+    margin-top: 20px;
+    background: url("../images/button2.png") no-repeat 0 -1650px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 0 5px 5px 0;
+}
+
+.phoneIn .phoneIn_content .main_content .login_button:hover {
+    background-position: 0 -1730px;
+}
+
+.phoneIn .phoneIn_bottom {
+    height: 49px;
+    width: 100%;
+    background-color: #f7f7f7;
+    border-radius: 0 0 5px 5px;
+    padding: 0 10px;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.phoneIn .phoneIn_bottom .others {
+    line-height: 49px;
+    float: left;
+    text-decoration: none;
+    color: #448ace;
+}
+
+.phoneIn .phoneIn_bottom .free_sign {
+    float: right;
+    color: #666;
+    line-height: 49px;
+    text-decoration: none;
+}
+
+.after_login {
+    margin-top: 20px;
+    float: left;
+    display: none;
+    height: 185px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+.after_login img {
+    width: 80px;
+    height: 80px;
+}
+.after_login .simple_info {
+    width: 110px;
+    height: 80px;
+    float: right;
+}
+.after_login .simple_info .nick_name {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    height: 30px;
+    width: 110px;
+    line-height: 30px;
+}
+.after_login .simple_info .make_in {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1a9adc;
+    text-align: center;
+    font-size: 18px;
+    line-height: 30px;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}

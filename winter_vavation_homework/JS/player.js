@@ -31,10 +31,12 @@
             if(index < 0) {
                 index = this.music_list.length -1;
             }
+            console.log(index)
             return index;
         },
         index_next: function () {
             let index = this.currentIndex + 1;
+            console.log(index);
             if(index > this.music_list.length - 1) {
                 index = 0;
             }

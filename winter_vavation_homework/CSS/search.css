@@ -1,0 +1,94 @@
+.search_h {
+    display: none;
+    width: 980px;
+    background: #fff;
+    border: 1px solid #ccc;
+    margin: 35px auto 70px auto;
+}
+.search_h .search_body {
+    padding: 40px;
+}
+.search_h .search_body .search_box {
+    width: 420px;
+    height: 40px;
+    margin: 0 auto;
+}
+.search_h .search_body .search_box .s_text {
+    float: left;
+    height: 100%;
+    width: 370px;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    padding: 10px;
+    background: url("../images/sprite.png") no-repeat 0 0;
+}
+.search_h .search_body .search_box .s_btn {
+    height: 100%;
+    width: 50px;
+    background: url("../images/sprite.png") no-repeat -370px 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.search_h .search_body .search_box .s_btn:hover {
+    background-position: -430px 0;
+}
+
+.search_h .search_body .s_result {
+    margin-top: 40px;
+    font-size: 12px;
+    color: #666666;
+}
+.search_h .search_body .s_result span {
+    color: red;
+    font-size: 12px;
+}
+.search_h .search_body .search_list {
+    margin-top: 20px;
+    border-top:1px solid #ccc;
+}
+.search_h .search_body .search_list li:nth-child(2n) {
+    background: #f7f7f7;
+}
+.search_h .search_body .res_detail {
+     height: 45px;
+     padding: 10px;
+     box-sizing: border-box;
+ }
+.search_h .search_body .res_detail .s_play {
+    float: left;
+    width: 17px;
+    height: 17px;
+    background: url("../images/table.png") no-repeat 0 -103px;
+    cursor: pointer;
+    margin: 4px;
+}
+.search_h .search_body .res_detail * {
+     font-size: 12px;
+     color: #333;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.search_h .search_body .res_detail .s_play:hover{
+    background-position: 0 -128px;
+}
+.search_h .search_body .res_detail .s_title {
+    float: left;
+    width: 400px;
+    height: 25px;
+}
+.search_h .search_body .res_detail .s_singer {
+    float: left;
+    width: 155px;
+}
+.search_h .search_body .res_detail .s_album {
+    width: 180px;
+    float: left;
+}
+.search_h .search_body .res_detail .s_time {
+    width: 32px;
+    float: right;
+}

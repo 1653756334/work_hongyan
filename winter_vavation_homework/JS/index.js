@@ -55,14 +55,13 @@ $(() => {
             foo();
         })
     })();
-
     //推荐歌单
     let recSongs = $('.rec_songs');
     $.ajax({
         url: "http://127.0.0.1:3000/personalized?limit=8",
         dataType: "json",
         success: function (data) {
-            data.result.forEach(function (ele, index) {
+            data.result.forEach(function (ele) {
                 recSongs.append(createRecSongs(ele));
             })
         },
@@ -112,14 +111,5 @@ $(() => {
             left_nav.css("top",`0px`);
         }
     })
-
-    //搜索页面
-    let search = $("#search").get(0);
-
-    $(document).keyup(function(event){
-        if (search === document.activeElement && event.keyCode === 13) {
-            let text = search.value;
-        }
-    });
 
 });

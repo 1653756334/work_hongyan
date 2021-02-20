@@ -75,14 +75,31 @@ $(function () {
                 login_img[0].src = data.profile.avatarUrl;
                 login_img2.src = data.profile.avatarUrl;
                 nick_name.innerText = data.profile.nickname;
-                login_img.css("display","block");
-                login_h.css("display", "none");
-                pre_login.css("display", "none");
-                after_login.css("display","block");
+                loginChange();
+                getUserSheet(data.account.id);
             },
             error: function (e) {
                 console.log(e);
             }
         })
     })
+    function loginChange() {
+        login_img.css("display","block");
+        login_h.css("display", "none");
+        pre_login.css("display", "none");
+        after_login.css("display","block");
+    }
+
+    function getUserSheet(id) {
+        let my_sheets = $(".my_songs_sheet");
+        $.ajax({
+            url: "http://127.0.0.1:3000/user/playlist?uid="+id+"",
+            dataType: "json",
+            success: function (data) {
+                data.playlist.forEach((content)=>{
+                    my_sheets.append("<li id=\""+content.id+"\"> "+content.name+"</li>");
+                })
+            }
+        })
+    }
 });

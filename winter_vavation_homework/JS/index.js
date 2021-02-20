@@ -76,7 +76,7 @@ $(() => {
         let count = data.playCount > 50000 ? (parseInt(data.playCount/10000)+"万") : data.playCount;
         return $("<li class='sheet' id="+data.id+">\n" +
             "                            <div class=\"song_sheet_cover\">\n" +
-            "                                <img src="+data.picUrl+" alt=\"\">\n" +
+            "                                <img src=\""+data.picUrl+"\" alt=\"\">\n" +
             "                                <div class=\"bottom\">\n" +
             "                                    <span class=\"ico_listen\"></span>\n" +
             "                                    <span class=\"visit_num\">"+count+"</span>\n" +
@@ -112,4 +112,14 @@ $(() => {
             left_nav.css("top",`0px`);
         }
     })
+
+    //搜索页面
+    let search = $("#search").get(0);
+
+    $(document).keyup(function(event){
+        if (search === document.activeElement && event.keyCode === 13) {
+            let text = search.value;
+        }
+    });
+
 });

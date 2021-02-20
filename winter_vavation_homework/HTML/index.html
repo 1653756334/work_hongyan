@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="../CSS/login.css">
     <link rel="stylesheet" href="../CSS/song_sheet.css">
     <script src="../JS/jquery.js"></script>
+    <script src="../JS/player.js"></script>
+    <script src="../JS/progress.js"></script>
     <script src="../JS/songs_sheet.js"></script>
     <script src="../JS/login.js"></script>
     <script src="../JS/index.js"></script>
-
-
 </head>
 
 <body>
@@ -34,11 +34,7 @@
         <li> 我的收藏</li>
     </ul>
     <ul class="my_songs_sheet">
-        &nbsp;创建的歌单
-        <li> 我喜欢的音乐</li>
-    </ul>
-    <ul class="save_sheet">
-        &nbsp;收藏的歌单
+        &nbsp;喜欢,创建,收藏的歌单
     </ul>
 </div>
 
@@ -63,7 +59,7 @@
             </div>
 
             <a href="https://music.163.com/#/login?targetUrl=%2Fcreatorcenter" class="creator" target="_blank">创作者中心</a>
-            <label class="search"><input type="text" placeholder="音乐/视频/电台/用户"> </label>
+            <label for="search" class="search"><input type="text" id="search" placeholder="音乐/视频/电台/用户" autocomplete="off"> </label>
 
         </div>
         <div class="sub_nav">
@@ -443,7 +439,7 @@
     <div class="m_c_right">
         <div class="mod_choose">标准</div>
         <div class="voice_control">
-            <span></span>
+            <span>&nbsp;</span>
             <div class="voice_bar">
                 <div class="voice_line">
                     <div class="voice_dot"></div>
@@ -466,9 +462,14 @@
 </div>
 
 <!--歌单详情页面-->
-<div class="sheet_detail">
+<div class="sheet_detail"></div>
 
+<!--搜索页面-->
+<div class="search_h">
+    
 </div>
+
+<audio src=""></audio>
 </body>
 
 </html>

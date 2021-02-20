@@ -286,6 +286,7 @@ a:hover {
     line-height: 30px;
     vertical-align: top;
     font-size: 12px;
+    text-align: center;
 }
 .sheet_detail .songs_list .songs_box .t_s_songs li .l_play {
     display: inline-block;
@@ -341,6 +342,9 @@ a:hover {
     font-size: 12px;
     padding-left: 18px;
     line-height: 30px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .list_2,
 .list_2,

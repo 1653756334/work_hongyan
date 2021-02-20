@@ -6,9 +6,40 @@ $(function () {
     let song_s_change = $(".s_s_change");
     let sheets = $(".sheets_info");
     let sheet_detail = $(".sheet_detail");
+
+    let $audio = $("audio");
+    let player = new Player($audio);
+
+    let music_progress = $(".play_bar");
+    let music_line = $(".play_line");
+
+    let progress = Progress(music_progress, music_line);
+    progress.progressClick(function (value) {
+        player.musicTo(value)
+    });
+    progress.progressMove(function (value) {
+        player.musicTo(value);
+    });
+
+    let voice_progress = $(".voice_bar");
+    let voice_line = $(".voice_line");
+    let v_progress = Progress(voice_progress, voice_line);
+    v_progress.progressClick(function (value) {
+        if(value <= 1 && value >= 0){
+            player.voiceTo(value);
+        }
+
+    });
+    v_progress.progressMove(function (value) {
+        if(value <= 1 && value >= 0){
+            player.voiceTo(value);
+        }
+    })
+    
     song_s_change.on("click", function () {
         disappear(img_show);
         disappear(pre_show);
+        disappear(sheet_detail);
         show(sheet_sq);
         $.ajax({
             url: "http://127.0.0.1:3000/top/playlist?limit=35&order=hot",
@@ -57,6 +88,10 @@ $(function () {
     $('.rec_songs').delegate("li","click", function () {
         show_sheet($(this)[0].id);
     })
+    $(".my_songs_sheet").delegate("li","click",function () {
+        show_sheet($(this)[0].id);
+    })
+
     function show_sheet(id) {
         disappear(img_show);
         disappear(pre_show);
@@ -66,8 +101,43 @@ $(function () {
             url: "http://127.0.0.1:3000/playlist/detail?id="+id+"",
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                while (sheet_detail[0].hasChildNodes()) {
+                    sheet_detail[0].removeChild(sheet_detail[0].firstChild);
+                }
                 sheet_detail.append(createDetail(data));
+
+                let t_s_songs = $(".t_s_songs");
+                let hot_comment = $(".comment");
+                let song_list = data.playlist.tracks
+
+                if(data.playlist.tracks.length > 10) {
+                    song_list = song_list.slice(0,10);
+                }
+                player.music_list = song_list;
+                song_list.forEach((ele, index)=>{
+                    t_s_songs.append(createMusicList(ele,index));
+                })
+                //评论
+                $.ajax({
+                    url: "http://127.0.0.1:3000/comment/playlist?id="+id+"",
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.hotComments) {
+                            data.hotComments.forEach((com)=> {
+                                hot_comment.append(createHotComment(com));
+                            })
+                        }
+                        data.comments.forEach((com)=> {
+                            hot_comment.append(createHotComment(com));
+                        });
+                    },
+                    error: function (e) {
+                        console.warn(e);
+                    }
+                });
+
+                //初始化底部控制区域
+                initMusicInfo(song_list[0]);
             },
             error: function (e) {
                 console.warn(e);
@@ -75,12 +145,27 @@ $(function () {
         })
     }
 
+    function initMusicInfo(music) {
+        let musicImg = $(".m_c_lft img");
+        let musicName = $(".mu_name");
+        let musicSinger = $(".sing_name");
+
+        musicImg.attr("src", music.al.picUrl);
+        musicName.text(music.name);
+        musicSinger.text(music.ar[0].name);
+    }
+
+    //渲染歌单页面
     function createDetail(data) {
         let createTime = new Date(data.playlist.createTime);
-        let format_time = createTime.getFullYear()  +"-"+ createTime.getMonth() +"-"+ createTime.getDate();
+        let format_time = createTime.getFullYear()  +"-"+ (createTime.getMonth()+1) +"-"+ createTime.getDate();
 
-        let desc = data.playlist.description.replace(/\s/g,"<br>");
-        console.log(desc);
+        if(data.playlist.description) {
+            var desc = data.playlist.description.replace(/\s/g,"<br>");
+        } else {
+            desc = '';
+        }
+
         return $("<div class=\"description_sheet\">\n" +
             "        <div class=\"t_l_sheet\">\n" +
             "            <img src=\""+data.playlist.coverImgUrl+"\" alt=\"\" class=\"sheet_cover\">\n" +
@@ -114,33 +199,6 @@ $(function () {
             "                <span>专辑</span>\n" +
             "            </div>\n" +
             "            <ul class=\"t_s_songs\">\n" +
-            "                <li>\n" +
-            "                    <div class=\"list_1\">\n" +
-            "                        <span class=\"s_sort\">1</span>\n" +
-            "                        <a href=\"javascript:void(0)\" class=\"l_play\"></a>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"list_2\">\n" +
-            "                        <a href=\"javascript:void(0)\" class=\"music_title\">大名鼎鼎</a>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"list_3\">\n" +
-            "                        <span class=\"music_time\">05:02</span>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"list_4\">\n" +
-            "                        <span class=\"m_singer\">大大大</span>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"list_5\">\n" +
-            "                        <div class=\"m_album\">我的专辑</div>\n" +
-            "                    </div>\n" +
-            "                </li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
-            "                <li></li>\n" +
             "            </ul>\n" +
             "            <div class=\"more_download\">\n" +
             "                <p>查看更多内容，请下载客户端</p>\n" +
@@ -151,7 +209,6 @@ $(function () {
             "    <div class=\"sheet_comments\">\n" +
             "        <div class=\"com_top\">\n" +
             "            <h2>评论</h2>\n" +
-            "            <div class=\"c_num\">共有33条评论</div>\n" +
             "        </div>\n" +
             "        <div class=\"write_com\">\n" +
             "            <div class=\"head\">\n" +
@@ -169,20 +226,144 @@ $(function () {
             "        <div class=\"hot_comments\">\n" +
             "            <div class=\"h_c_top\">精彩评论</div>\n" +
             "            <ul class=\"comment\">\n" +
-            "                <li>\n" +
-            "                    <img src=\"\" alt=\"\">\n" +
-            "                    <div class=\"com_det\">\n" +
-            "                        <div class=\"com_box\">\n" +
-            "                            <a class=\"u_name\" href=\"javascript:void(0)\">7or0</a>\n" +
-            "                            ：我收藏歌单的步骤：1封面好看 2歌单名字吸引我 3歌曲不是那种经常听到且没有意义的歌 达成这三点基本就可以躺我收藏夹里吃灰（不是）是收藏起来慢慢听了\n" +
-            "                        </div>\n" +
-            "                        <div class=\"pub_date\">2020年8月1日</div>\n" +
-            "                    </div>\n" +
-            "                </li>\n" +
-            "                <li></li>\n" +
             "            </ul>\n" +
             "        </div>\n" +
             "    </div>");
     }
+    // 渲染歌单歌曲
+    function createMusicList(ele,index) {
+        let $item = $(" <li class=\"list_music\">\n" +
+            "                    <div class=\"list_1\">\n" +
+            "                        <span class=\"s_sort\">"+(index+1)+"</span>\n" +
+        "                        <a href=\"javascript:void(0)\" class=\"l_play\"></a>\n" +
+        "                    </div>\n" +
+        "                    <div class=\"list_2\">\n" +
+        "                        <a href=\"javascript:void(0)\" class=\"music_title\">"+ele.name+"</a>\n" +
+        "                    </div>\n" +
+        "                    <div class=\"list_3\">\n" +
+        "                        <span class=\"music_time\">05:02</span>\n" +
+        "                    </div>\n" +
+        "                    <div class=\"list_4\">\n" +
+        "                        <span class=\"m_singer\">"+ele.ar[0].name+"</span>\n" +
+        "                    </div>\n" +
+        "                    <div class=\"list_5\">\n" +
+        "                        <div class=\"m_album\">"+ele.al.name+"</div>\n" +
+        "                    </div>\n" +
+        "                </li>\n")
+        $item.get(0).index = index;
+        $item.get(0).music = ele;
+        $.ajax({
+            url: "http://127.0.0.1:3000/song/url?id="+ele.id+"",
+            dataType: "json",
+            success: function (data) {
+                $item.get(0).music.link_url = data.data[0].url;
+            },
+            error: function (e) {
+                console.warn(e);
+            }
+        })
+        return $item;
+    }
+    //渲染歌曲评论
+    function createHotComment(data) {
+        let time = new Date(data.time);
+        let pub_time = time.getFullYear() + "年" + (time.getMonth()+1) + "月" + time.getDate();
+        return $("<li>\n" +
+            "                    <img src=\""+data.user.avatarUrl+"\" alt=\"\">\n" +
+            "                    <div class=\"com_det\">\n" +
+            "                        <div class=\"com_box\">\n" +
+            "                            <a class=\"u_name\" href=\"javascript:void(0)\">"+data.user.nickname+"</a>\n" +
+            "                            "+data.content+"\n" +
+            "                        </div>\n" +
+            "                        <div class=\"pub_date\">"+pub_time+"</div>\n" +
+            "                    </div>\n" +
+            "                </li>\n");
+    }
 
+    //添加子菜单播放按钮的监听
+    let musicPlay = $("span.play");
+    sheet_detail.delegate(".l_play","click" ,function () {
+
+        //添加正在播放类，可以靠这个判断是否在播放
+        $(this).toggleClass("playing");
+        $(this).parents(".list_music").siblings().find(".l_play").removeClass("playing");
+        //为正在播放添加标记
+        $(this).parents(".list_music").css("color","red");
+        $(this).parents(".list_music").siblings().css("color", "#666");
+        //同步底部播放按钮
+        if($(this).hasClass("playing")){
+            musicPlay[0].innerHTML = "";
+        } else {
+            musicPlay[0].innerHTML = "";
+        }
+
+
+        let $item = $(this).parents(".list_music").get(0);
+        //播放音乐
+        player.playMusic($item.index, $item.music);
+
+        //切换歌曲信息
+        initMusicInfo($item.music);
+    })
+
+    //底部控制区域
+    let musicPre = $(".pre_s");
+    let musicNext = $(".next_s");
+    //播放
+    musicPlay.on("click", function () {
+        if(player.currentIndex === -1){  //判断有没有播放
+            $(".list_music").eq(0).find(".l_play").trigger("click");
+            //rigger("click") 主动触发点击事件
+        } else {
+            $(".list_music").eq(player.currentIndex).find(".l_play").trigger("click");
+        }
+    })
+    //上一首
+    musicPre.on("click", function () {
+        $(".list_music").eq(player.index_pre()).find(".l_play").trigger("click");
+    })
+    //下一首
+    musicNext.on("click", function () {
+        $(".list_music").eq(player.index_next()).find(".l_play").trigger("click");
+    })
+
+    //监听播放进度
+    player.$audio.on("timeupdate", function () {
+        //同步时间
+        changeTime();
+        //同步进度条
+        let value = (player.getMusicCurrentTime() / player.getMusicDuration()) * 100;
+        progress.setProgress(value);
+    })
+    //改变底部时间的函数
+    function changeTime() {
+        let musicTime = $(".total_t");
+        let currentTime = $(".current_t");
+
+        let minute = (player.getMusicDuration() / 60) > 10 ? parseInt(player.getMusicDuration()/60) : "0" + parseInt(player.getMusicDuration() / 60);
+        let seconds = (player.getMusicDuration() % 60) > 10 ? parseInt(player.getMusicDuration() % 60) : "0" + parseInt(player.getMusicDuration() % 60);
+        musicTime.text(minute +":"+ seconds);
+
+        let c_minute = (player.getMusicCurrentTime() / 60) > 10 ? parseInt(player.getMusicCurrentTime()/60) : "0" + parseInt(player.getMusicCurrentTime() / 60);
+        let c_seconds = (player.getMusicCurrentTime() % 60) > 10 ? parseInt(player.getMusicCurrentTime() % 60) : "0" + parseInt(player.getMusicCurrentTime() % 60);
+        currentTime.text(c_minute +":"+ c_seconds);
+    }
+
+    //监听声音按钮的点击
+    let sounds = true;
+    $(".voice_control span").on("click", function () {
+        // 声音图标
+        if (sounds) {
+            $(this).text("");
+            // 变为没有声音
+            player.voiceTo(0)
+            sounds = false;
+        } else {
+            $(this).text("");
+            // 变为有声音
+            player.voiceTo(1);
+            sounds = true;
+        }
+
+    })
 });

@@ -805,6 +805,9 @@ li>a:hover,
     font-family: 'icomoon';
     line-height: 36px;
     color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .left_nav ul li:hover {
     background-color: #f6f6f7;
@@ -829,6 +832,7 @@ li>a:hover,
     z-index: 2;
     padding: 10px;
     box-sizing: border-box;
+    user-select: none;
 }
 .music_control .m_c_lft {
     width: 260px;
@@ -923,12 +927,12 @@ li>a:hover,
     width: 390px;
     height: 4px;
     background-color: #c2c2c4;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 .music_control .m_c_middle .play_bar .play_line {
     position: relative;
     height: 100%;
-    width: 20px;
+    width: 0;
     background-color: #ff4e4e;
 }
 .music_control .m_c_middle .play_bar .play_line .play_dot {
@@ -974,7 +978,7 @@ li>a:hover,
 .music_control .m_c_right .voice_bar .voice_line {
     position: relative;
     height: 100%;
-    width: 20px;
+    width: 60px;
     background-color: #ff4e4e;
 }
 .music_control .m_c_right .voice_bar .voice_line .voice_dot {

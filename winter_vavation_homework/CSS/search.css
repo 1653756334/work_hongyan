@@ -62,7 +62,7 @@
     height: 17px;
     background: url("../images/table.png") no-repeat 0 -103px;
     cursor: pointer;
-    margin: 4px;
+    margin: 4px 8px 4px 0;
 }
 .search_h .search_body .res_detail * {
      font-size: 12px;

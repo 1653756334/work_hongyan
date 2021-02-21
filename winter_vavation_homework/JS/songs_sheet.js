@@ -35,17 +35,52 @@ $(function () {
             player.voiceTo(value);
         }
     })
+    //初始化歌词信息
+    function initMusicInfo(music) {
+        let musicImg = $(".m_c_lft img");
+        let musicName = $(".mu_name");
+        let musicSinger = $(".sing_name");
+
+        musicImg.attr("src", music.al.picUrl);
+        musicName.text(music.name);
+        musicSinger.text(music.ar[0].name);
+        $(".signal_title").text(music.name);
+        $(".signal_singer a").text(music.ar[0].name);
+        $(".signal_album a").text(music.al.name);
+        $(".signal_cover").attr("src", music.al.picUrl);
+    }
+
+    //初始化歌词信息
+    let lyricBox = $(".lyric");
+    let lyrics;
+    function initMusicLyric(music) {
+        if (music.lyric === undefined) return;
+        lyrics = Lyric(music.lyric);
+        lyrics.parseLyric();
+        while (lyricBox[0].hasChildNodes()) {
+            lyricBox[0].removeChild(lyricBox[0].firstChild);
+        }
+        lyrics.lyrics.forEach(function (ele, index) {
+            let item = $("<li>"+ele+"</li> <br>");
+            lyricBox.append(item);
+        })
+
+    }
+
     
     song_s_change.on("click", function () {
         disappear(img_show);
         disappear($(".search_h"));
         disappear(pre_show);
         disappear(sheet_detail);
-        show(sheet_sq);
+        appear(sheet_sq);
         $.ajax({
             url: "http://127.0.0.1:3000/top/playlist?limit=35&order=hot",
             dataType: "json",
             success: function (data) {
+                while (sheets[0].hasChildNodes()) {
+                    sheets[0].removeChild(sheets[0].firstChild);
+                }
                 data.playlists.forEach(function (ele) {
                     sheets.append(createRecSongs(ele));
                 })
@@ -64,7 +99,7 @@ $(function () {
     function disappear(ele) {
         ele.css("display", "none");
     }
-    function show(ele) {
+    function appear(ele) {
         ele.css("display", "block");
     }
 
@@ -98,7 +133,7 @@ $(function () {
         disappear(pre_show);
         disappear(sheet_sq);
         disappear($(".search_h"));
-        show(sheet_detail);
+        appear(sheet_detail);
         $.ajax({
             url: "http://127.0.0.1:3000/playlist/detail?id="+id+"",
             dataType: "json",
@@ -107,6 +142,7 @@ $(function () {
                     sheet_detail[0].removeChild(sheet_detail[0].firstChild);
                 }
                 sheet_detail.append(createDetail(data));
+                player.currentIndex = -1;
 
                 let t_s_songs = $(".t_s_songs");
                 let hot_comment = $(".comment");
@@ -137,24 +173,11 @@ $(function () {
                         console.warn(e);
                     }
                 });
-
-                //初始化底部控制区域
-                initMusicInfo(song_list[0]);
             },
             error: function (e) {
                 console.warn(e);
             }
         })
-    }
-
-    function initMusicInfo(music) {
-        let musicImg = $(".m_c_lft img");
-        let musicName = $(".mu_name");
-        let musicSinger = $(".sing_name");
-
-        musicImg.attr("src", music.al.picUrl);
-        musicName.text(music.name);
-        musicSinger.text(music.ar[0].name);
     }
 
     //渲染歌单页面
@@ -254,11 +277,24 @@ $(function () {
         "                </li>\n")
         $item.get(0).index = index;
         $item.get(0).music = ele;
+        //获取歌曲链接
         $.ajax({
             url: "http://127.0.0.1:3000/song/url?id="+ele.id+"",
             dataType: "json",
             success: function (data) {
                 $item.get(0).music.link_url = data.data[0].url;
+            },
+            error: function (e) {
+                console.warn(e);
+            }
+        })
+        //获取歌曲歌词
+        $.ajax({
+            url: "http://127.0.0.1:3000/lyric?id="+ele.id+"",
+            dataType: "json",
+            success: function (data) {
+                if(data.lrc === undefined) return
+                $item.get(0).music.lyric = data.lrc.lyric;
             },
             error: function (e) {
                 console.warn(e);
@@ -290,8 +326,8 @@ $(function () {
         $(this).toggleClass("playing");
         $(this).parents(".list_music").siblings().find(".l_play").removeClass("playing");
         //为正在播放添加标记
-        $(this).parents(".list_music").css("color","red");
-        $(this).parents(".list_music").siblings().css("color", "#666");
+        $(this).parents(".list_music").find(".music_title").css("color","red");
+        $(this).parents(".list_music").siblings().find(".music_title").css("color", "#666");
         //同步底部播放按钮
         if($(this).hasClass("playing")){
             musicPlay[0].innerHTML = "";
@@ -306,28 +342,37 @@ $(function () {
 
         //切换歌曲信息
         initMusicInfo($item.music);
+        initMusicLyric($item.music);
     })
 
     //底部控制区域
     let musicPre = $(".pre_s");
     let musicNext = $(".next_s");
-    //播放
-    musicPlay.on("click", function () {
-        if(player.currentIndex === -1){  //判断有没有播放
-            $(".list_music").eq(0).find(".l_play").trigger("click");
-            //rigger("click") 主动触发点击事件
-        } else {
-            $(".list_music").eq(player.currentIndex).find(".l_play").trigger("click");
-        }
-    })
-    //上一首
-    musicPre.on("click", function () {
-        $(".list_music").eq(player.index_pre()).find(".l_play").trigger("click");
-    })
-    //下一首
-    musicNext.on("click", function () {
-        $(".list_music").eq(player.index_next()).find(".l_play").trigger("click");
-    })
+
+
+        //播放
+        musicPlay.on("click", function () {
+            if($(".search_h")[0].style.display === "none") {
+                if (player.currentIndex === -1) {  //判断有没有播放
+                    $(".list_music").eq(0).find(".l_play").trigger("click");
+                    //rigger("click") 主动触发点击事件
+                } else {
+                    $(".list_music").eq(player.currentIndex).find(".l_play").trigger("click");
+                }
+            }
+        })
+        //上一首
+        musicPre.on("click", function () {
+            if($(".search_h")[0].style.display === "none") {
+                $(".list_music").eq(player.index_pre()).find(".l_play").trigger("click");
+            }
+        })
+        //下一首
+        musicNext.on("click", function () {
+            if($(".search_h")[0].style.display === "none") {
+                $(".list_music").eq(player.index_next()).find(".l_play").trigger("click");
+            }
+        })
 
     //监听播放进度
     player.$audio.on("timeupdate", function () {
@@ -336,11 +381,19 @@ $(function () {
         //同步进度条
         let value = (player.getMusicCurrentTime() / player.getMusicDuration()) * 100;
         progress.setProgress(value);
-    })
+
+        //歌词同步
+        let l_index = lyrics.currentIndex(player.getMusicCurrentTime());
+        let cur_lyric = $(".lyric li").eq(l_index);
+        cur_lyric.css("color", "red")
+        cur_lyric.siblings().css("color", "#333");
+    });
     //改变底部时间的函数
     function changeTime() {
         let musicTime = $(".total_t");
         let currentTime = $(".current_t");
+
+        if (isNaN(player.getMusicDuration())) return;
 
         let minute = (player.getMusicDuration() / 60) > 10 ? parseInt(player.getMusicDuration()/60) : "0" + parseInt(player.getMusicDuration() / 60);
         let seconds = (player.getMusicDuration() % 60) > 10 ? parseInt(player.getMusicDuration() % 60) : "0" + parseInt(player.getMusicDuration() % 60);
@@ -366,115 +419,5 @@ $(function () {
             player.voiceTo(1);
             sounds = true;
         }
-    })
-
-    let search = $("#search").get(0);
-    let search_list = $(".search_list");
-    let search_h = $(".search_h");
-    let resText = $(".s_result");
-    let s_text = $(".s_text").get(0);
-    $(document).keyup(function(event){
-        if (search === document.activeElement && event.keyCode === 13) {
-            let text = search.value;
-            search_core(text);
-        }
-    });
-
-    function search_core(value) {
-        //生成页面
-        disappear(img_show);
-        disappear(pre_show);
-        disappear(sheet_detail);
-        disappear(sheet_sq);
-        show(search_h)
-        //加载搜索结果
-        s_text.value = value;
-        $.ajax({
-            url: "http://127.0.0.1:3000/cloudsearch?keywords= "+value+"",
-            dataType: "json",
-            success:function (data) {
-                while (search_list[0].hasChildNodes()) {
-                    search_list[0].removeChild(search_list[0].firstChild);
-                };
-                resText[0].innerHTML= "搜索“"+value+"”，找到 <span>"+data.result.songs.length+"</span> 首单曲";
-                data.result.songs.forEach(function (ele, index) {
-                    search_list.append(createSearchResult(ele, index));
-                });
-                player.music_list = data.result.songs;
-            }
-        })
-    }
-
-    //搜索
-    function createSearchResult(music, index) {
-        if (music.alia[0]) {
-            music.name = music.name + ' - ' + music.alia[0];
-        }
-        let $item = $("<li class=\"res_detail\">\n" +
-            "                <div class=\"s_play\"></div>\n" +
-            "                <div class=\"s_title\">"+music.name+"</div>\n" +
-            "                <div class=\"s_singer\">"+music.ar[0].name+"</div>\n" +
-            "                <div class=\"s_album\">《"+music.al.name+"》</div>\n" +
-            "                <div class=\"s_time\">05:13</div>\n" +
-            "            </li>")
-        $item.get(0).index = index;
-        $item.get(0).music = music;
-        $.ajax({
-            url: "http://127.0.0.1:3000/song/url?id="+music.id+"",
-            dataType: "json",
-            success: function (data) {
-                $item.get(0).music.link_url = data.data[0].url;
-            },
-            error: function (e) {
-                console.warn(e);
-            }
-        })
-        return $item;
-    }
-
-    search_list.delegate(".s_play","click" ,function () {
-
-        //添加正在播放类，可以靠这个判断是否在播放
-        $(this).toggleClass("playing");
-        $(this).parents(".res_detail").siblings().find(".l_play").removeClass("playing");
-        //为正在播放添加标记
-        $(this).parents(".res_detail").find(".s_title").css("color","red");
-        $(this).parents(".res_detail").siblings().find(".s_title").css("color", "#666");
-        //同步底部播放按钮
-        if($(this).hasClass("playing")){
-            musicPlay[0].innerHTML = "";
-        } else {
-            musicPlay[0].innerHTML = "";
-        }
-
-
-        let $item = $(this).parents(".res_detail").get(0);
-        //播放音乐
-        player.playMusic($item.index, $item.music);
-
-        //切换歌曲信息
-        initMusicInfo($item.music);
-    })
-
-    musicPlay.on("click", function () {
-        if(player.currentIndex === -1){  //判断有没有播放
-            $(".res_detail").eq(0).find(".s_play").trigger("click");
-            //rigger("click") 主动触发点击事件
-        } else {
-            $(".res_detail").eq(player.currentIndex).find(".s_play").trigger("click");
-        }
-    })
-    //上一首
-    musicPre.on("click", function () {
-        $(".res_detail").eq(player.index_pre()).find(".s_play").trigger("click");
-    })
-    //下一首
-    musicNext.on("click", function () {
-        $(".res_detail").eq(player.index_next()).find(".s_play").trigger("click");
-    })
-
-    search_h.delegate(".s_btn", "click", function () {
-        let t = s_text.value;
-        search_core(t);
     })
 });

@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="../CSS/login.css">
     <link rel="stylesheet" href="../CSS/song_sheet.css">
     <link rel="stylesheet" href="../CSS/search.css">
+    <link rel="stylesheet" href="../CSS/signal_music.css">
     <script src="../JS/jquery.js"></script>
     <script src="../JS/player.js"></script>
     <script src="../JS/progress.js"></script>
+    <script src="../JS/lyric.js"></script>
     <script src="../JS/songs_sheet.js"></script>
     <script src="../JS/login.js"></script>
     <script src="../JS/index.js"></script>
+
 </head>
 
 <body>
@@ -58,15 +61,19 @@
                 <img src="" alt="" class="head_img">
                 <a href="#">登录</a>
             </div>
-
             <a href="https://music.163.com/#/login?targetUrl=%2Fcreatorcenter" class="creator" target="_blank">创作者中心</a>
-            <label for="search" class="search"><input type="text" id="search" placeholder="音乐/视频/电台/用户" autocomplete="off"> </label>
+            <div class="search_box">
+                <label for="search" class="search"><input type="text" id="search" placeholder="音乐/视频/电台/用户" autocomplete="off"> </label>
+                <ul class="hot_search_box">
+
+                </ul>
+            </div>
 
         </div>
         <div class="sub_nav">
             <div class="sub_nav_content">
                 <ul class="ul_nav">
-                    <li class="ul_nav-choose"><a href="index.html">推荐</a></li>
+                    <li class="ul_nav-choose"><a href="javascript:void(0)">推荐</a></li>
                     <li><a href="#">排行榜</a></li>
                     <li><a href="#" class="s_s_change">歌单</a></li>
                     <li><a href="#">主播电台</a></li>
@@ -477,7 +484,31 @@
         </ul>
     </div>
 </div>
-<audio src=""></audio>
+
+<!--歌曲页面-->
+<div class="signal_music">
+    <div class="s_m_content">
+        <div class="signal_left">
+            <div class="signal_cover_box">
+                <img src="" alt="" class="signal_cover an">
+            </div>
+        </div>
+        <div class="signal_right">
+            <div class="signal_title"></div>
+            <br><br>
+            <div class="simple_info">
+                <div class="signal_singer">歌手：<a href="javascript:void(0)"></a></div>
+                <div class="signal_album">专辑：<a href="javascript:void(0)"></a></div>
+            </div>
+            <ul class="lyric">
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<audio src="" class="audio"></audio>
+<audio src="" class="require_time"></audio>
 </body>
 
 </html>

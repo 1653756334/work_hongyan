@@ -31,7 +31,6 @@
             if(index < 0) {
                 index = this.music_list.length -1;
             }
-            console.log(index)
             return index;
         },
         index_next: function () {

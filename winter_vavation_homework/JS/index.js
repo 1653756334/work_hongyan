@@ -183,12 +183,36 @@ $(() => {
                 while (search_list[0].hasChildNodes()) {
                     search_list[0].removeChild(search_list[0].firstChild);
                 }
-                resText[0].innerHTML= "搜索“"+value+"”，找到 <span>"+data.result.songs.length+"</span> 首单曲";
+                let songs = data.result.songs.slice(0, 10);
+
+                resText[0].innerHTML= "搜索“"+value+"”，找到 <span>"+songs.length+"</span> 首单曲";
                 player.currentIndex = -1;
-                data.result.songs.forEach(function (ele, index) {
+                songs.forEach(function (ele, index) {
                     search_list.append(createSearchResult(ele, index));
                 });
-                player.music_list = data.result.songs;
+                player.music_list = songs;
+
+                //歌曲时长
+                for(let i = 0; i < songs.length; i++) {
+                    $.ajax({
+                        url: "http://127.0.0.1:3000/song/url?id="+songs[i].id,
+                        dataType: "json",
+                        success: function (data) {
+                            let musicTimes = $(".s_time");
+                            let t_audios = $(".require_time");
+                            t_audios[i].src = data.data[0].url;
+                            t_audios[i].addEventListener("canplay", function () {
+                                let time = parseInt(t_audios[i].duration);
+                                let minute = parseInt((time / 60)) > 10 ? parseInt((time / 60)) : "0"+parseInt((time / 60));
+                                let second = parseInt((time % 60)) > 10 ? parseInt((time % 60)) : "0"+parseInt((time % 60));
+                                musicTimes[i].innerHTML = minute +":"+ second;
+                            })
+                        },
+                        error: function (e) {
+                            console.warn(e)
+                        }
+                    })
+                }
             }
         })
     }
@@ -239,11 +263,6 @@ $(() => {
             dataType: "json",
             success: function (data) {
                 $item.get(0).music.link_url = data.data[0].url;
-                time_audio.src = data.data[0].url;
-                time_audio.on("loadedmetadata", function () {
-                    let dur = time_audio.duration;
-                    console.log(dur);
-                })
             }
         })
         $.ajax({
@@ -356,4 +375,6 @@ $(() => {
         let value = val.replace(/^\w\s/, "");
         search_core(value);
     })
+
+
 });

@@ -173,6 +173,29 @@ $(function () {
                         console.warn(e);
                     }
                 });
+
+                //歌曲时长
+                for(let i = 0; i < song_list.length; i++) {
+                    $.ajax({
+                        url: "http://127.0.0.1:3000/song/url?id="+song_list[i].id,
+                        dataType: "json",
+                        success: function (data) {
+                            let musicTimes = $(".music_time");
+                            let t_audios = $(".require_time");
+                            t_audios[i].src = data.data[0].url;
+                            t_audios[i].addEventListener("canplay", function () {
+                                let time = parseInt(t_audios[i].duration);
+                                let minute = parseInt((time / 60)) > 10 ? parseInt((time / 60)) : "0"+parseInt((time / 60));
+                                let second = parseInt((time % 60)) > 10 ? parseInt((time % 60)) : "0"+parseInt((time % 60));
+                                musicTimes[i].innerHTML = minute +":"+ second;
+                            })
+                        },
+                        error: function (e) {
+                            console.warn(e)
+                        }
+                    })
+                }
+
             },
             error: function (e) {
                 console.warn(e);
@@ -277,7 +300,9 @@ $(function () {
         "                </li>\n")
         $item.get(0).index = index;
         $item.get(0).music = ele;
+
         //获取歌曲链接
+        let time_audio = $(".require_time");
         $.ajax({
             url: "http://127.0.0.1:3000/song/url?id="+ele.id+"",
             dataType: "json",
@@ -288,6 +313,7 @@ $(function () {
                 console.warn(e);
             }
         })
+
         //获取歌曲歌词
         $.ajax({
             url: "http://127.0.0.1:3000/lyric?id="+ele.id+"",
@@ -300,6 +326,7 @@ $(function () {
                 console.warn(e);
             }
         })
+
         return $item;
     }
     //渲染歌曲评论
@@ -352,6 +379,7 @@ $(function () {
 
         //播放
         musicPlay.on("click", function () {
+            $(".signal_cover").toggleClass("an");
             if($(".search_h")[0].style.display === "none") {
                 if (player.currentIndex === -1) {  //判断有没有播放
                     $(".list_music").eq(0).find(".l_play").trigger("click");
@@ -383,10 +411,13 @@ $(function () {
         progress.setProgress(value);
 
         //歌词同步
-        let l_index = lyrics.currentIndex(player.getMusicCurrentTime());
-        let cur_lyric = $(".lyric li").eq(l_index);
-        cur_lyric.css("color", "red")
-        cur_lyric.siblings().css("color", "#333");
+        if($(".search_h")[0].style.display === "none") {
+            if(!lyrics) return;
+            let l_index = lyrics.currentIndex(player.getMusicCurrentTime());
+            let cur_lyric = $(".lyric li").eq(l_index);
+            cur_lyric.css("color", "red")
+            cur_lyric.siblings().css("color", "#333");
+        }
     });
     //改变底部时间的函数
     function changeTime() {

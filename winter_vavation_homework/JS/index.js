@@ -111,12 +111,12 @@ $(() => {
 
     //侧边栏显示
     let left_nav = $(".left_nav");
-    $(document).on("mousemove", function (e) {
-        if(e.pageX < 20) {
-            left_nav.slideDown(1000);
-        }
-        if(e.pageX > 220) {
-            left_nav.slideUp(1000);
+    $(".show_l_nav").on("click", function () {
+        appear(left_nav);
+    })
+    $(document).on("click", function (e) {
+        if(e.pageX > 200) {
+            disappear(left_nav);
         }
     })
 

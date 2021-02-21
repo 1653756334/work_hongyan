@@ -1026,3 +1026,16 @@ li>a:hover,
 .hot_search_box li:hover {
     background-color: #ccc;
 }
+
+.show_l_nav {
+    position: fixed;
+    top: 49%;
+    left: 0;
+    background: url("../images/banner.png") no-repeat 0 -508px;
+    height: 60px;
+    width: 39px;
+    cursor: pointer;
+}
+.show_l_nav:hover {
+    background-position: 0 -578px;
+}

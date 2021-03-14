@@ -32,7 +32,7 @@
             })
         },
         currentIndex: function (currentTime) {
-            if(currentTime >= this.times[0]) {
+            if(currentTime >= this.times[0]-0.2) {
                 this.index++;
                 //没判断一个就把第一个删除，让每次的判断都是当前播放的进度
                 this.times.shift();

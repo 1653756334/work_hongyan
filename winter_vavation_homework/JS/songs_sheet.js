@@ -134,6 +134,7 @@ $(function () {
         disappear(sheet_sq);
         disappear($(".search_h"));
         appear(sheet_detail);
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         $.ajax({
             url: "http://127.0.0.1:3000/playlist/detail?id="+id+"",
             dataType: "json",
@@ -302,7 +303,6 @@ $(function () {
         $item.get(0).music = ele;
 
         //获取歌曲链接
-        let time_audio = $(".require_time");
         $.ajax({
             url: "http://127.0.0.1:3000/song/url?id="+ele.id+"",
             dataType: "json",
@@ -348,7 +348,6 @@ $(function () {
     //添加子菜单播放按钮的监听
     let musicPlay = $("span.play");
     sheet_detail.delegate(".l_play","click" ,function () {
-
         //添加正在播放类，可以靠这个判断是否在播放
         $(this).toggleClass("playing");
         $(this).parents(".list_music").siblings().find(".l_play").removeClass("playing");
@@ -358,8 +357,10 @@ $(function () {
         //同步底部播放按钮
         if($(this).hasClass("playing")){
             musicPlay[0].innerHTML = "";
+            $(".signal_cover").addClass("an");
         } else {
             musicPlay[0].innerHTML = "";
+            $(".signal_cover").removeClass("an");
         }
 
 
@@ -376,31 +377,29 @@ $(function () {
     let musicPre = $(".pre_s");
     let musicNext = $(".next_s");
 
-
-        //播放
-        musicPlay.on("click", function () {
-            $(".signal_cover").toggleClass("an");
-            if($(".search_h")[0].style.display === "none") {
-                if (player.currentIndex === -1) {  //判断有没有播放
-                    $(".list_music").eq(0).find(".l_play").trigger("click");
-                    //rigger("click") 主动触发点击事件
-                } else {
-                    $(".list_music").eq(player.currentIndex).find(".l_play").trigger("click");
-                }
+    //播放
+    musicPlay.on("click", function () {
+        if($(".search_h")[0].style.display === "none") {
+            if (player.currentIndex === -1) {  //判断有没有播放
+                $(".list_music").eq(0).find(".l_play").trigger("click");
+                //rigger("click") 主动触发点击事件
+            } else {
+                $(".list_music").eq(player.currentIndex).find(".l_play").trigger("click");
             }
-        })
-        //上一首
-        musicPre.on("click", function () {
-            if($(".search_h")[0].style.display === "none") {
-                $(".list_music").eq(player.index_pre()).find(".l_play").trigger("click");
-            }
-        })
-        //下一首
-        musicNext.on("click", function () {
-            if($(".search_h")[0].style.display === "none") {
-                $(".list_music").eq(player.index_next()).find(".l_play").trigger("click");
-            }
-        })
+        }
+    })
+    //上一首
+    musicPre.on("click", function () {
+        if($(".search_h")[0].style.display === "none") {
+            $(".list_music").eq(player.index_pre()).find(".l_play").trigger("click");
+        }
+    })
+    //下一首
+    musicNext.on("click", function () {
+        if($(".search_h")[0].style.display === "none") {
+            $(".list_music").eq(player.index_next()).find(".l_play").trigger("click");
+        }
+    })
 
     //监听播放进度
     player.$audio.on("timeupdate", function () {

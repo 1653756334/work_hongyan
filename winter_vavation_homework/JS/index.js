@@ -103,6 +103,9 @@ $(() => {
     loginBtn.on("click", function () {
         login.css("display","block");
     })
+    $(".sub_login").on("click", function () {
+        loginBtn.trigger("click");
+    })
 
     let close_h = $(".top_close");
     close_h.on("click", function () {
@@ -112,11 +115,11 @@ $(() => {
     //侧边栏显示
     let left_nav = $(".left_nav");
     $(".show_l_nav").on("click", function () {
-        appear(left_nav);
+        appear(left_nav)
     })
     $(document).on("click", function (e) {
         if(e.pageX > 200) {
-            disappear(left_nav);
+            disappear(left_nav)
         }
     })
 
@@ -259,7 +262,7 @@ $(() => {
 
         let time_audio = $(".require_time");
         $.ajax({
-            url: "http://127.0.0.1:3000/song/url?id="+music.id+"",
+            url: "http://127.0.0.1:3000/song/url?id="+music.id,
             dataType: "json",
             success: function (data) {
                 $item.get(0).music.link_url = data.data[0].url;
@@ -286,8 +289,10 @@ $(() => {
         $(this).parents(".res_detail").find(".s_title").css("color", "red");
         $(this).parents(".res_detail").siblings().find(".s_title").css("color", "#333");
         if($(this).hasClass("playing")){
+            $(".signal_cover").addClass("an");
             musicPlay[0].innerHTML = "";
         } else {
+            $(".signal_cover").removeClass("an");
             musicPlay[0].innerHTML = "";
         }
 
@@ -376,5 +381,91 @@ $(() => {
         search_core(value);
     })
 
+    //新碟速递
+    let new_albums = $(".alums");
+    $.ajax({
+        url: "http://127.0.0.1:3000/album/new?limit=5",
+        dataType: "json",
+        success: function (data) {
+            data.albums.forEach(function (ele) {
+                new_albums.append(creatNewAlbums(ele));
+            })
+        }
+    })
 
+
+    function creatNewAlbums(album) {
+        return $("<li>\n" +
+            "                                <div><img\n" +
+            "                                        src=\""+album.picUrl+"\"\n" +
+            "                                        alt=\"\" title=\""+album.name+"\"></div>\n" +
+            "                                <p class=\"al_name\"><a href=\"javascript:void(0)\">"+album.name+"</a></p>\n" +
+            "                                <p class=\"author\"><a href=\"javascript:void(0)\">"+album.artist.name+"</a></p>\n" +
+            "                            </li>")
+    }
+
+    //排行榜
+    let ranks = $(".rank_songs");
+    $.ajax({
+        url: "http://127.0.0.1:3000/playlist/detail?id=19723756",
+        dataType: "json",
+        success: function (data) {
+            let songs = data.playlist.tracks.splice(0, 10);
+            songs.forEach((ele, index)=> {
+                ranks.eq(0).append(createRankSong(ele, index));
+            })
+        }
+    })
+    $.ajax({
+        url: "http://127.0.0.1:3000/playlist/detail?id=3779629",
+        dataType: "json",
+        success: function (data) {
+            let songs = data.playlist.tracks.splice(0, 10);
+            songs.forEach((ele, index)=> {
+                ranks.eq(1).append(createRankSong(ele, index));
+            })
+        }
+    })
+    $.ajax({
+        url: "http://127.0.0.1:3000/playlist/detail?id=3778678",
+        dataType: "json",
+        success: function (data) {
+            let songs = data.playlist.tracks.splice(0, 10);
+            songs.forEach((ele, index)=> {
+                ranks.eq(2).append(createRankSong(ele, index));
+            })
+        }
+    })
+
+    ranks.eq(0).delegate("li", "mouseenter", function () {
+        $(this).find(".func_btn").fadeIn(100);
+    })
+    ranks.eq(0).delegate("li", "mouseleave", function () {
+        $(this).find(".func_btn").fadeOut(100);
+    })
+    ranks.eq(1).delegate("li", "mouseenter", function () {
+        $(this).find(".func_btn").fadeIn(100);
+    })
+    ranks.eq(1).delegate("li", "mouseleave", function () {
+        $(this).find(".func_btn").fadeOut(100);
+    })
+    ranks.eq(2).delegate("li", "mouseenter", function () {
+        $(this).find(".func_btn").fadeIn(100);
+    })
+    ranks.eq(2).delegate("li", "mouseleave", function () {
+        $(this).find(".func_btn").fadeOut(100);
+    })
+
+    function createRankSong(music, index) {
+        let item = $("<li>\n" +
+            "                                <span>"+(index+1)+"</span>\n" +
+            "                                <a href=\"javascript:void(0)\" class=\"rank_music_name\">"+music.name+"</a>\n" +
+            "                                <div class=\"func_btn\">\n" +
+            "                                    <a href=\"javascript:void(0)\"></a>\n" +
+            "                                    <a href=\"javascript:void(0)\"></a>\n" +
+            "                                    <a href=\"javascript:void(0)\"></a>\n" +
+            "                                </div>\n" +
+            "                            </li>")
+        return item;
+    }
 });

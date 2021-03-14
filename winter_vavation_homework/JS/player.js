@@ -9,7 +9,6 @@
             this.$audio = $audio;
             this.audio = $audio.get(0);
         },
-
         currentIndex: -1,
         playMusic: function (index, music) {
             //判断是否是同一首音乐
@@ -21,7 +20,7 @@
                     this.audio.pause();
                 }
             } else {
-                this.$audio.attr("src", music.link_url);
+                this.audio.src = music.link_url;
                 this.audio.play();
                 this.currentIndex = index;
             }

@@ -450,6 +450,9 @@ li>a:hover,
     background: url("../images/coverall_8.png") no-repeat 0 -570px;
     margin-left: 10px;
 }
+.body_info .left_info .left_info_content .new_album .albums_info .alums li img {
+    width: 100px;
+}
 .body_info .left_info .left_info_content .new_album .albums_info .alums li p {
     width:100px;/*要显示文字的宽度*/
     overflow:hidden; /*超出的部分隐藏起来。*/
@@ -542,7 +545,14 @@ li>a:hover,
     top: 12px;
     right: 36px;
 }
+.rank_music_name {
+    font-size: 12px;
+    overflow:hidden; //超出的文本隐藏
+    text-overflow:ellipsis; //溢出用省略号显示
+    white-space:nowrap; //溢出不换行
+}
 .body_info .left_info .left_info_content .ranks .rank_name .play_collect_btn a{
+    /*display: none;*/
     display: inline-block;
     position: relative;
     width: 29px;
@@ -551,6 +561,9 @@ li>a:hover,
     right: 38px;
     background: url("../images/index.png") no-repeat -265px -233px;
     opacity: 0.6;
+}
+.func_btn {
+    display: none;
 }
 .body_info .left_info .left_info_content .ranks .rank_name .play_collect_btn a:last-child {
     background-position: -297px -233px;

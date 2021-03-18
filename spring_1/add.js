@@ -1,14 +1,21 @@
-const save = (timer, fn) => {
-    let nums = [];
-    return function (num) {
-        if(--timer === 0) {
-            return fn(nums)
-        }
-        else nums.push(num)
+let add = (a, b) => {
+    return a + b;
+}
+
+let save = (fn) => {
+    let arr = [];
+    return function replay() {
+        let arg = Array.prototype.slice.apply(arguments);
+        arr = arr.concat(arg)
+
+        if(arg.length === 0) return arr.reduce(fn)
+
+        else return replay
     }
 }
 
-let add = save(3, (arg) => arg.reduce((a, b)=> a + b))
-add(100);
-add(200);
-console.log(add()); // 300
+add = save(add)
+
+add(100)
+add(200)
+console.log(add()) // 300

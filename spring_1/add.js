@@ -18,4 +18,5 @@ add = save(add)
 
 add(100)
 add(200)
+add(200)
 console.log(add()) // 300

@@ -1,0 +1,11 @@
+{
+  "name": "osx-ajax",
+  "version": "1.0.1",
+  "description": "a ajax practice",
+  "main": "osx-ajax.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "osx",
+  "license": "ISC"
+}

@@ -20,6 +20,7 @@ const commonConfig = {
             {
                 test: /\.js$/,
                 use: [
+                    path.resolve(__dirname, "loaders/replaceLoader"),
                     'babel-loader'
                 ],
                 exclude: '/node_modules/',

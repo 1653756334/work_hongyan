@@ -44,6 +44,7 @@ async function go() {
     await move(ball1, 200)
     await move(ball2, 200)
     await move(ball3, 200)
+    console.log("redrock");
 }
 
 go()

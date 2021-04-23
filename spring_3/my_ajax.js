@@ -1,6 +1,7 @@
-function ajax_osx(options={}) {
+function ajax_osx(options = {}) {
     return new ajax_osx.prototype.init(options);
 }
+
 ajax_osx.prototype = {
     constructor: ajax_osx,
     init: function (options) {
